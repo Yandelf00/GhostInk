@@ -18,6 +18,41 @@ type InkDropConfig struct {
 	filename    *string
 }
 
+type Options func(*InkDropConfig)
+
+func InkDrop(opts ...Options) {
+	config := InkDropConfig{
+		entry_input: "Note : this is only the default message",
+	}
+	for _, opt := range opts {
+		opt(&config)
+	}
+}
+
+func WithEntryInput(entry_input string) Options {
+	return func(cfg *InkDropConfig) {
+		cfg.entry_input = entry_input
+	}
+}
+
+func WithTags(tags []string) Options {
+	return func(cfg *InkDropConfig) {
+		cfg.tags = tags
+	}
+}
+
+func WithShade(shade *string) Options {
+	return func(cfg *InkDropConfig) {
+		cfg.shade = shade
+	}
+}
+
+func WithFileName(filename *string) Options {
+	return func(cfg *InkDropConfig) {
+		cfg.filename = filename
+	}
+}
+
 func Haunt(message ...string) {
 	// Prints the file name, line number, function name, and timestamp of where this method is called.
 	//
@@ -66,11 +101,4 @@ func Get_Shades() sh.Shades {
 		ERROR: "ERROR"}
 
 	return shades
-}
-
-func Drop(entry_input string,
-	shade string,
-
-) {
-
 }
