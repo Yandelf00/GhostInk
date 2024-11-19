@@ -11,6 +11,13 @@ import (
 	sh "github.com/Yandelf00/GhostInk/shades"
 )
 
+type InkDropConfig struct {
+	entry_input string
+	shade       *string
+	tags        []string
+	filename    *string
+}
+
 func Haunt(message ...string) {
 	// Prints the file name, line number, function name, and timestamp of where this method is called.
 	//
@@ -61,6 +68,9 @@ func Get_Shades() sh.Shades {
 	return shades
 }
 
-func Drop() {
+func Drop(entry_input string,
+	shade string,
+
+) {
 
 }
