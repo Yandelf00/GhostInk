@@ -15,18 +15,23 @@ type InkDropConfig struct {
 	entry_input string
 	shade       *string
 	tags        []string
-	filename    *string
 }
 
 type Options func(*InkDropConfig)
 
+// functional Options Pattern
 func InkDrop(opts ...Options) {
+	var init_shade = "TODO"
 	config := InkDropConfig{
 		entry_input: "Note : this is only the default message",
+		tags:        nil,
+		shade:       &init_shade,
 	}
 	for _, opt := range opts {
 		opt(&config)
 	}
+
+	fmt.Println(*config.shade)
 }
 
 func WithEntryInput(entry_input string) Options {
@@ -47,10 +52,8 @@ func WithShade(shade *string) Options {
 	}
 }
 
-func WithFileName(filename *string) Options {
-	return func(cfg *InkDropConfig) {
-		cfg.filename = filename
-	}
+func DropFile(filename string) {
+
 }
 
 func Haunt(message ...string) {
