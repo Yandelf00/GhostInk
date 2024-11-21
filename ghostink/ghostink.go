@@ -30,8 +30,14 @@ func InkDrop(opts ...Options) {
 	for _, opt := range opts {
 		opt(&config)
 	}
+	pc, file, line, ok := runtime.Caller(1)
+	if !ok {
+		fmt.Println("Unknown file")
+	}
+	basefile := filepath.Base(file)
+	line_str := strconv.Itoa(line)
+	func_name := runtime.FuncForPC(pc).Name()
 
-	fmt.Println(*config.shade)
 }
 
 func WithEntryInput(entry_input string) Options {
