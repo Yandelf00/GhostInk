@@ -17,6 +17,17 @@ type InkDropConfig struct {
 	tags        []string
 }
 
+type SetType struct {
+	entry_input string
+	shade       *string
+	tags        []string
+	basefile    string
+	line_no     string
+	func_name   string
+}
+
+var s map[string]SetType
+
 type Options func(*InkDropConfig)
 
 // functional Options Pattern
