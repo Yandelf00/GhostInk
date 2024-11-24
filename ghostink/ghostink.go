@@ -21,9 +21,9 @@ type SetType struct {
 	entry_input string
 	shade       *string
 	tags        []string
-	basefile    string
 	line_no     string
 	func_name   string
+	basefile    string
 }
 
 var s map[string]SetType
@@ -33,6 +33,7 @@ type Options func(*InkDropConfig)
 // functional Options Pattern
 func InkDrop(opts ...Options) {
 	var init_shade = "TODO"
+	var myset SetType
 	config := InkDropConfig{
 		entry_input: "Note : this is only the default message",
 		tags:        nil,
@@ -48,7 +49,20 @@ func InkDrop(opts ...Options) {
 	basefile := filepath.Base(file)
 	line_str := strconv.Itoa(line)
 	func_name := runtime.FuncForPC(pc).Name()
+	key := basefile + line_str + func_name
+	key += config.entry_input + *config.shade
+	myset = SetType{
+		entry_input: config.entry_input,
+		shade:       config.shade,
+		tags:        config.tags,
+		line_no:     line_str,
+		func_name:   func_name,
+		basefile:    basefile,
+	}
+	s = make(map[string]SetType)
 
+	s[key] = myset
+	fmt.Println(s)
 }
 
 func WithEntryInput(entry_input string) Options {

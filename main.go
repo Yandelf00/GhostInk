@@ -11,5 +11,7 @@ func main() {
 	shade_instance := ink.Get_Shades()
 
 	fmt.Println("this is todo : ", shade_instance.TODO)
+
+	ink.InkDrop()
 	ink.InkDrop()
 }
